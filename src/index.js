@@ -10,11 +10,11 @@ import './index.scss';
 
 import { Home, NotFound } from './pages';
 import Layout from './Layout';
-import i18n from './lib/i18n';
+// import i18n from './lib/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // Change language
-i18n.changeLanguage('en');
+// i18n.changeLanguage('en');
 // config store
 const store = configureStore();
 
