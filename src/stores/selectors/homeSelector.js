@@ -1,1 +1,1 @@
-export const homeReducer = (state) => state.homeReducer;
+export const homeReducer = state => state.homeReducer;
