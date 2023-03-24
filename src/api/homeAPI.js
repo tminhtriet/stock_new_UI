@@ -4,9 +4,15 @@ export const homeAPI = createApi({
    reducerPath: 'homeAPI',
    baseQuery: fetchBaseQuery({ baseUrl: 'http://' }),
    endpoints: builder => ({
-      login: builder.query({
+      getListUser: builder.query({
+         query: () => ({
+            url: 'ListUser',
+            method: 'GET'
+         })
+      }),
+      editUser: builder.query({
          query: body => ({
-            url: 'login',
+            url: 'EditUser',
             method: 'POST',
             body
          })
@@ -14,4 +20,4 @@ export const homeAPI = createApi({
    })
 });
 
-export const { useLoginQuery } = homeAPI;
+export const { useGetListUserQuery, useEditUserQuery } = homeAPI;

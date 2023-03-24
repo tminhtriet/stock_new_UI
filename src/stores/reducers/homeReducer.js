@@ -1,25 +1,43 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useLoginQuery } from '../../api/homeAPI';
-
-const getUserLogin = createAsyncThunk('getUserLogin', async (username, password) => {
-   const response = await useLoginQuery({ username, password });
-   return response.data;
-});
+import { createSlice } from '@reduxjs/toolkit';
+import { getListUser, postEditUser } from '../thunks/homeThunk';
 
 const homeReducer = createSlice({
-   name: 'homeReducer',
+   name: 'home',
    initialState: {
-      language: 'vn'
+      language: 'vn',
+      users: [],
+      isLoading: false,
+      page: 1,
+      size: 24
    },
    reducers: {
       changeLanguage: (state, action) => {
          state.language = action.payload;
       }
    },
-   extraReducers: builder => {
-      builder.addCase(getUserLogin.fulfilled, (state, action) => {
+   extraReducers: {
+      [getListUser.pending]: state => {
+         console.log('get user pending');
+         state.isLoading = true;
+      },
+      [getListUser.fulfilled]: (state, action) => {
          console.log(state, action);
-      });
+         state.users = state.payload;
+         state.isLoading = false;
+      },
+      [getListUser.rejected]: state => {
+         console.log('rejected');
+         state.isLoading = false;
+      },
+      [postEditUser.pending]: state => {
+         console.log(`Pending ${state}`);
+      },
+      [postEditUser.fulfilled]: (state, action) => {
+         console.log(state, action);
+      },
+      [postEditUser.rejected]: state => {
+         console.log(`Rejected ${state}`);
+      }
    }
 });
 
